@@ -40,8 +40,8 @@ in
 
       host = lib.mkOption {
         type = lib.types.str;
-        default = "0.0.0.0";
-        description = "Gateway bind address.";
+        default = "127.0.0.1";
+        description = "Gateway bind address. Defaults to loopback; set to 0.0.0.0 to listen on all interfaces.";
       };
     };
 

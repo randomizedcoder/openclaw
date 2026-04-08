@@ -58,7 +58,7 @@ in
     name = "openclaw-nix-format";
     src = ../.;
     strictDeps = true;
-    nativeBuildInputs = [ pkgs.nixfmt-tree ];
+    nativeBuildInputs = [ pkgs.nixfmt ];
     buildPhase = ''
       runHook preBuild
       nixfmt --check flake.nix nix/

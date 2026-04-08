@@ -28,7 +28,7 @@
   ollamaPkg ? null,
   variant ? "gateway",
   networking ? "user",
-  debugMode ? true,
+  debugMode ? false,
 }:
 let
   sharedConstants = import ../constants.nix;

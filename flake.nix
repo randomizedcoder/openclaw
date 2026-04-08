@@ -296,10 +296,7 @@
             update-deps = mkApp (
               pkgs.writeShellApplication {
                 name = "openclaw-update-deps";
-                runtimeInputs = [
-                  pkgs.gnused
-                  pkgs.gnugrep
-                ];
+                runtimeInputs = [ ];
                 text = ''
                   echo "==> Updating flake inputs (nixpkgs, flake-utils, microvm)..."
                   nix flake update

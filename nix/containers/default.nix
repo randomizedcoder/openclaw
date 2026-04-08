@@ -62,7 +62,16 @@ let
     let
       allContents = contents ++ baseContents ++ userContents;
       inputsHash = builtins.substring 0 32 (
-        builtins.hashString "sha256" (builtins.concatStringsSep ":" (map (p: p.outPath) allContents))
+        builtins.hashString "sha256" (
+          builtins.concatStringsSep ":" (
+            (map (p: p.outPath) allContents)
+            ++ [
+              (builtins.toJSON entrypoint)
+              (builtins.toJSON env)
+              (builtins.toJSON extraConfig)
+            ]
+          )
+        )
       );
       imageTag = openclaw.version or "latest";
       image = pkgs.dockerTools.streamLayeredImage ({

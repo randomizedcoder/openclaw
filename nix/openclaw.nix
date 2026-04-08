@@ -76,8 +76,13 @@ pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
     # 2. Skip (not throw) when deps are completely missing — extensions that
     #    need extra runtime deps will work when installed normally, but the
     #    Nix build can't fetch them.
-    sed -i 's/if (installedVersion === null || !dependencyVersionSatisfied(spec, installedVersion)) {/if (false) {/' scripts/stage-bundled-plugin-runtime-deps.mjs
-    sed -i 's/throw lastError;/console.warn("Nix build: skipping failed plugin runtime deps staging:", lastError.message); return;/' scripts/stage-bundled-plugin-runtime-deps.mjs
+    substituteInPlace scripts/stage-bundled-plugin-runtime-deps.mjs \
+      --replace-fail \
+        'if (installedVersion === null || !dependencyVersionSatisfied(spec, installedVersion)) {' \
+        'if (false) {' \
+      --replace-fail \
+        'throw lastError;' \
+        'console.warn("Nix build: skipping failed plugin runtime deps staging:", lastError.message); return;'
 
     pnpm build
     pnpm ui:build

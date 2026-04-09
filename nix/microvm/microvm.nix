@@ -69,7 +69,7 @@ let
           # Ollama is available via nixpkgs
           services.ollama = {
             enable = true;
-            host = "127.0.0.1";
+            host = "0.0.0.0"; # VM needs all-interfaces for host→guest port forwarding
             port = lib.toInt sharedConstants.ports.ollama;
           };
           # Open firewall for internal communication
